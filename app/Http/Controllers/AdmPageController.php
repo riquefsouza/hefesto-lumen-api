@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdmParameterCategory;
+use App\Models\AdmPage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class AdmParameterCategoryController extends Controller
+class AdmPageController extends Controller
 {
     public function index()
     {
-        return AdmParameterCategory::all();
+        return AdmPage::all();
     }
 
     public function store(Request $request)
     {
         return response()
             ->json(
-                AdmParameterCategory::create($request->all()),
+                AdmPage::create($request->all()),
                 Response::HTTP_CREATED
             );
     }
 
     public function show(int $id)
     {
-        $obj = AdmParameterCategory::find($id);
+        $obj = AdmPage::find($id);
         if (is_null($obj)) {
             return response()->json('', Response::HTTP_NO_CONTENT);
         }
@@ -34,7 +34,7 @@ class AdmParameterCategoryController extends Controller
 
     public function update(int $id, Request $request)
     {
-        $obj = AdmParameterCategory::find($id);
+        $obj = AdmPage::find($id);
         if (is_null($obj)) {
             return response()->json([
                 'error' => 'Resource not found'
@@ -48,7 +48,7 @@ class AdmParameterCategoryController extends Controller
 
     public function destroy(int $id)
     {
-        $qty = AdmParameterCategory::destroy($id);
+        $qty = AdmPage::destroy($id);
         if ($qty === 0) {
             return response()->json([
                 'error' => 'Resource not found'

@@ -23,7 +23,6 @@ class AdmParameterCategory extends Model
     public $incrementing = true;
 
     public $timestamps = false;
-    //protected $fillable = ['pmc_seq', 'pmc_description', 'pmc_order'];
 
     protected $maps = ['pmc_seq' => 'id', 'pmc_description' => 'description', 'pmc_order' => 'order'];
     protected $hidden = ['pmc_seq', 'pmc_description', 'pmc_order'];
@@ -36,32 +35,32 @@ class AdmParameterCategory extends Model
         return $this->hasMany(AdmParameter::class);
     }
 
-    public function getIdAttribute()
+    public function getIdAttribute(): int
     {
         return $this->attributes['pmc_seq'];
     }
 
-    public function setIdAttribute($value)
+    public function setIdAttribute(int $value): void
     {
         $this->attributes['pmc_seq'] = $value;
     }
 
-    public function getDescriptionAttribute()
+    public function getDescriptionAttribute(): string
     {
         return $this->attributes['pmc_description'];
     }
 
-    public function setDescriptionAttribute($value)
+    public function setDescriptionAttribute(string $value): void
     {
         $this->attributes['pmc_description'] = $value;
     }
 
-    public function getOrderAttribute()
+    public function getOrderAttribute(): int | null
     {
         return $this->attributes['pmc_order'];
     }
 
-    public function setOrderAttribute($value)
+    public function setOrderAttribute(int | null $value): void
     {
         $this->attributes['pmc_order'] = $value;
     }
