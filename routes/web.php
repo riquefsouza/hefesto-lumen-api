@@ -20,6 +20,12 @@ $router->get('/', function () use ($router) {
 */
 
 $router->group(['prefix' => '/api/v1'], function () use ($router) {
-    $router->get('/admParameterCategory', 'AdmParameterCategoryController@index');
-    $router->get('/admParameter', 'AdmParameterController@index');
+
+    $router->post('admParameterCategory', 'AdmParameterCategoryController@store');
+    $router->get('admParameterCategory', 'AdmParameterCategoryController@index');
+    $router->get('admParameterCategory/{id}', 'AdmParameterCategoryController@show');
+    $router->put('admParameterCategory/{id}', 'AdmParameterCategoryController@update');
+    $router->delete('admParameterCategory/{id}', 'AdmParameterCategoryController@destroy');
+
+    $router->get('admParameter', 'AdmParameterController@index');
 });
