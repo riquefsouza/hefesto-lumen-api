@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'id', 'username',
     ];
 
     /**
@@ -30,4 +30,24 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function getIdAttribute(): int
+    {
+        return $this->attributes['id'];
+    }
+
+    public function setIdAttribute(int $value): void
+    {
+        $this->attributes['id'] = $value;
+    }
+
+    public function getUsernameAttribute(): string
+    {
+        return $this->attributes['username'];
+    }
+
+    public function setUsernameAttribute(string $value): void
+    {
+        $this->attributes['username'] = $value;
+    }
 }

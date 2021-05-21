@@ -39,7 +39,7 @@ class LoginController extends Controller
                     'id' => strval($user->getIdAttribute()),
                     'name' => $user->getNameAttribute(),
                     'email' => $user->getEmailAttribute()
-                ], '%env(string:JWT_SECRET)%', 'HS256');
+                ], env('JWT_SECRET'), 'HS256');
 
                 $tokenDTO = new TokenDTO($token, "Bearer");
 

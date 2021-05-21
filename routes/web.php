@@ -21,7 +21,7 @@ $router->get('/', function () use ($router) {
 
 $router->post('/auth', 'LoginController@login');
 
-$router->group(['prefix' => '/api/v1'], function () use ($router) {
+$router->group(['prefix' => '/api/v1', 'middleware' => 'authenticator'], function () use ($router) {
 
     $router->post('admParameterCategory', 'AdmParameterCategoryController@store');
     $router->get('admParameterCategory', 'AdmParameterCategoryController@index');
