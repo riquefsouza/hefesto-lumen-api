@@ -10,7 +10,7 @@ class AdmUserProfile extends Model
     /**
      * @var string
      */
-    protected $table = 'adm_page_profile';
+    protected $table = 'adm_user_profile';
 
     /**
      * @var string

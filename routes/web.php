@@ -19,6 +19,8 @@ $router->get('/', function () use ($router) {
 });
 */
 
+$router->post('/auth', 'LoginController@login');
+
 $router->group(['prefix' => '/api/v1'], function () use ($router) {
 
     $router->post('admParameterCategory', 'AdmParameterCategoryController@store');
@@ -45,6 +47,9 @@ $router->group(['prefix' => '/api/v1'], function () use ($router) {
     $router->put('admProfile/{id}', 'AdmProfileController@update');
     $router->delete('admProfile/{id}', 'AdmProfileController@destroy');
 
+    $router->get('findProfilesByPage/{pageId}', 'AdmProfileController@findProfilesByPage');
+    $router->get('findProfilesByUser/{userId}', 'AdmProfileController@findProfilesByUser');
+
     $router->post('admUser', 'AdmUserController@store');
     $router->get('admUser', 'AdmUserController@index');
     $router->get('admUser/{id}', 'AdmUserController@show');
@@ -56,5 +61,7 @@ $router->group(['prefix' => '/api/v1'], function () use ($router) {
     $router->get('admMenu/{id}', 'AdmMenuController@show');
     $router->put('admMenu/{id}', 'AdmMenuController@update');
     $router->delete('admMenu/{id}', 'AdmMenuController@destroy');
+
+    $router->get('mountMenu', 'AdmMenuController@mountMenu');
 
 });

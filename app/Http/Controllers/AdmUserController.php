@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\AdmUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\AdmUserService;
 
 class AdmUserController extends Controller
 {
+
+    /**
+     * @var AdmUserService
+     */
+    private $service;
+
+    public function __construct(AdmUserService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        return AdmUser::all();
+        $list = AdmUser::all();
+        $this->service->setTransientList($list);
+
+        return $list;
     }
 
     public function store(Request $request)
@@ -27,6 +42,8 @@ class AdmUserController extends Controller
         $obj = AdmUser::find($id);
         if (is_null($obj)) {
             return response()->json('', Response::HTTP_NO_CONTENT);
+        } else {
+            $this->service->setTransient($obj);
         }
 
         return response()->json($obj);

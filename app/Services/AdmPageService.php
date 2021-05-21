@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\AdmPage;
 use App\Services\AdmPageProfileService;
-use \Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class AdmPageService
 {

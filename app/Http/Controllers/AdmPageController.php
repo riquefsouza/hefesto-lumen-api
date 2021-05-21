@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdmPage;
-use App\Models\AdmPageProfile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\AdmPageService;
@@ -23,10 +22,10 @@ class AdmPageController extends Controller
 
     public function index()
     {
-        $AdmPageList = AdmPage::all();
-        $this->service->setTransientList($AdmPageList);
+        $list = AdmPage::all();
+        $this->service->setTransientList($list);
 
-        return $AdmPageList;
+        return $list;
     }
 
     public function store(Request $request)
@@ -43,6 +42,8 @@ class AdmPageController extends Controller
         $obj = AdmPage::find($id);
         if (is_null($obj)) {
             return response()->json('', Response::HTTP_NO_CONTENT);
+        } else {
+            $this->service->setTransient($obj);
         }
 
         return response()->json($obj);

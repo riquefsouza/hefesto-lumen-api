@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class AdmMenu extends Model
 {
@@ -32,9 +33,9 @@ class AdmMenu extends Model
     protected $fillable = ['id', 'description', 'idMenuParent', 'idPage', 'order'];
 
     /**
-     * @var \AdmMenu[]|null
-    */
-    private $admSubMenus = array();
+     * @var Collection
+     */
+    private $admSubMenus;
 
     public function getAdmPageAttribute(): AdmPage | null
     {
@@ -101,15 +102,17 @@ class AdmMenu extends Model
         $this->attributes['mnu_order'] = $value;
     }
 
-    /**
-     * @return \AdmMenu[]|null
-     */
-    public function &getAdmSubMenus()
+    public function getUrlAttribute(): string|null
+    {
+		return $this->getAdmPageAttribute() != null ? $this->getAdmPageAttribute()->getUrlAttribute() : null;
+	}
+
+    public function getAdmSubMenus()
     {
         return $this->admSubMenus;
     }
 
-    public function setAdmSubMenus(array $admSubMenus): self
+    public function setAdmSubMenus(Collection $admSubMenus): self
     {
         $this->admSubMenus = $admSubMenus;
 

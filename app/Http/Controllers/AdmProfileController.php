@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\AdmProfile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\AdmProfileService;
 
 class AdmProfileController extends Controller
 {
+
+    /**
+     * @var AdmProfileService
+     */
+    private $service;
+
+    public function __construct(AdmProfileService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        return AdmProfile::all();
+        $list = AdmProfile::all();
+        $this->service->setTransientList($list);
+
+        return $list;
     }
 
     public function store(Request $request)
@@ -27,6 +42,8 @@ class AdmProfileController extends Controller
         $obj = AdmProfile::find($id);
         if (is_null($obj)) {
             return response()->json('', Response::HTTP_NO_CONTENT);
+        } else {
+            $this->service->setTransient($obj);
         }
 
         return response()->json($obj);
@@ -56,5 +73,19 @@ class AdmProfileController extends Controller
         }
 
         return response()->json('', Response::HTTP_NO_CONTENT);
+    }
+
+    public function findProfilesByPage(int $pageId)
+    {
+        $admProfileList = $this->service->findProfilesByPage($pageId);
+        //return response()->json($admProfileList);
+        return collect($admProfileList);
+    }
+
+    public function findProfilesByUser(int $userId)
+    {
+        $admProfileList = $this->service->findProfilesByUser($userId);
+        //return response()->json($admProfileList);
+        return collect($admProfileList);
     }
 }

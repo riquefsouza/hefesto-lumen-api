@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\AdmMenu;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\AdmMenuService;
 
 class AdmMenuController extends Controller
 {
+
+    /**
+     * @var AdmMenuService
+     */
+    private $service;
+
+    public function __construct(AdmMenuService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        return AdmMenu::all();
+        $list = AdmMenu::all();
+        $this->service->setTransientList($list);
+
+        return $list;
     }
 
     public function store(Request $request)
@@ -27,6 +42,8 @@ class AdmMenuController extends Controller
         $obj = AdmMenu::find($id);
         if (is_null($obj)) {
             return response()->json('', Response::HTTP_NO_CONTENT);
+        } else {
+            $this->service->setTransient($obj);
         }
 
         return response()->json($obj);
@@ -56,5 +73,14 @@ class AdmMenuController extends Controller
         }
 
         return response()->json('', Response::HTTP_NO_CONTENT);
+    }
+
+    public function mountMenu(Request $request)
+    {
+        $listaIdProfile = $request->all();
+        $menuItens = $this->service->mountMenuItem($listaIdProfile);
+
+        //return response()->json($menuItens);
+        return collect($menuItens);
     }
 }
