@@ -2,45 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdmPage;
-use App\Models\AdmPageProfile;
+use App\Models\AdmProfile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Services\AdmPageService;
 
-class AdmPageController extends Controller
+class AdmProfileController extends Controller
 {
-
-    /**
-     * @var AdmPageService
-     */
-    private $service;
-
-    public function __construct(AdmPageService $service)
-    {
-        $this->service = $service;
-    }
-
     public function index()
     {
-        $AdmPageList = AdmPage::all();
-        $this->service->setTransientList($AdmPageList);
-
-        return $AdmPageList;
+        return AdmProfile::all();
     }
 
     public function store(Request $request)
     {
         return response()
             ->json(
-                AdmPage::create($request->all()),
+                AdmProfile::create($request->all()),
                 Response::HTTP_CREATED
             );
     }
 
     public function show(int $id)
     {
-        $obj = AdmPage::find($id);
+        $obj = AdmProfile::find($id);
         if (is_null($obj)) {
             return response()->json('', Response::HTTP_NO_CONTENT);
         }
@@ -50,7 +34,7 @@ class AdmPageController extends Controller
 
     public function update(int $id, Request $request)
     {
-        $obj = AdmPage::find($id);
+        $obj = AdmProfile::find($id);
         if (is_null($obj)) {
             return response()->json([
                 'error' => 'Resource not found'
@@ -64,7 +48,7 @@ class AdmPageController extends Controller
 
     public function destroy(int $id)
     {
-        $qty = AdmPage::destroy($id);
+        $qty = AdmProfile::destroy($id);
         if ($qty === 0) {
             return response()->json([
                 'error' => 'Resource not found'

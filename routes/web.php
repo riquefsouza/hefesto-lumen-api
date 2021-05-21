@@ -39,4 +39,22 @@ $router->group(['prefix' => '/api/v1'], function () use ($router) {
     $router->put('admPage/{id}', 'AdmPageController@update');
     $router->delete('admPage/{id}', 'AdmPageController@destroy');
 
+    $router->post('admProfile', 'AdmProfileController@store');
+    $router->get('admProfile', 'AdmProfileController@index');
+    $router->get('admProfile/{id}', 'AdmProfileController@show');
+    $router->put('admProfile/{id}', 'AdmProfileController@update');
+    $router->delete('admProfile/{id}', 'AdmProfileController@destroy');
+
+    $router->post('admUser', 'AdmUserController@store');
+    $router->get('admUser', 'AdmUserController@index');
+    $router->get('admUser/{id}', 'AdmUserController@show');
+    $router->put('admUser/{id}', 'AdmUserController@update');
+    $router->delete('admUser/{id}', 'AdmUserController@destroy');
+
+    $router->post('admMenu', 'AdmMenuController@store');
+    $router->get('admMenu', 'AdmMenuController@index');
+    $router->get('admMenu/{id}', 'AdmMenuController@show');
+    $router->put('admMenu/{id}', 'AdmMenuController@update');
+    $router->delete('admMenu/{id}', 'AdmMenuController@destroy');
+
 });

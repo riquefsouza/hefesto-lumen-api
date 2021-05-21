@@ -31,15 +31,15 @@ class AdmProfile extends Model
     protected $appends = ['id', 'administrator', 'description', 'general', 'admPages', 'admUsers', 'profilePages', 'profileUsers'];
     protected $fillable = ['id', 'administrator', 'description', 'general'];
 
-    public function admPageProfiles()
-    {
-        return $this->hasMany(AdmPageProfile::class);
-    }
+    /**
+     * @return AdmPage[]|null
+     */
+    private $admPages = array();
 
-    public function admUserProfiles()
-    {
-        return $this->hasMany(AdmUserProfile::class);
-    }
+    /**
+     * @return AdmUser[]|null
+     */
+    private $admUsers = array();
 
     /**
      * @var string|null
@@ -50,6 +50,16 @@ class AdmProfile extends Model
      * @var string|null
      */
     private $profileUsers;
+
+    public function admPageProfiles()
+    {
+        return $this->hasMany(AdmPageProfile::class);
+    }
+
+    public function admUserProfiles()
+    {
+        return $this->hasMany(AdmUserProfile::class);
+    }
 
     public function getIdAttribute(): int
     {

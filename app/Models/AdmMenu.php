@@ -36,12 +36,12 @@ class AdmMenu extends Model
     */
     private $admSubMenus = array();
 
-    public function getAdmPageAttribute(): AdmPage
+    public function getAdmPageAttribute(): AdmPage | null
     {
         return AdmPage::find($this->getIdPageAttribute());
     }
 
-    public function getAdmMenuParentAttribute(): AdmMenu
+    public function getAdmMenuParentAttribute(): AdmMenu | null
     {
         return AdmMenu::find($this->getIdMenuParentAttribute());
     }
@@ -89,6 +89,16 @@ class AdmMenu extends Model
     public function setIdPageAttribute(int | null $value): void
     {
         $this->attributes['mnu_pag_seq'] = $value;
+    }
+
+    public function getOrderAttribute(): int | null
+    {
+        return $this->attributes['mnu_order'];
+    }
+
+    public function setOrderAttribute(int | null $value): void
+    {
+        $this->attributes['mnu_order'] = $value;
     }
 
     /**
